@@ -4,6 +4,7 @@ import DeviceListCard from "../components/DeviceListCard";
 import SearchBar from "../components/SearchBar";
 
 export default function HomePage() {
+    const [devicesAll, setDevicesAll] = useState([]);
     const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -14,7 +15,9 @@ export default function HomePage() {
         const fetchDevices = async () => {
             try {
                 const data = await getApi();
+                setDevicesAll(data || []);
                 setDevices(data || []);
+                setOrder('title-asc');
             } catch (error) {
                 console.error("Errore nel caricamento dei dispositivi:", error);
                 setDevices([]);
@@ -27,26 +30,36 @@ export default function HomePage() {
     }, []);
 
     useEffect(() => {
-        setDevices(devices.filter(d => d.title.toLowerCase().includes(searchTerm.toLowerCase())));
-    }, [searchTerm]);
+        let result = [...devicesAll];
 
-    useEffect(() => {
-        setDevices(devices.filter(d => d.category === filtered));
-    }, [filtered]);
+        if (searchTerm) {
+            result = result.filter(d =>
+                d.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
 
-    useEffect(() => {
-        setDevices(devices.sort((a, b) => {
-            if (order === 'title-asc') {
-                return a.title.localeCompare(b.title);
-            } else if (order === 'title-desc') {
-                return b.title.localeCompare(a.title);
-            } else if (order === 'category-asc') {
-                return a.category.localeCompare(b.category);
-            } else if (order === 'category-desc') {
-                return b.category.localeCompare(a.category);
-            }
-        }));
-    }, [order]);
+        if (filtered) {
+            result = result.filter(d => d.category === filtered);
+        }
+
+        if (order) {
+            result.sort((a, b) => {
+                if (order === 'title-asc') {
+                    return a.title.localeCompare(b.title);
+                } else if (order === 'title-desc') {
+                    return b.title.localeCompare(a.title);
+                } else if (order === 'category-asc') {
+                    return a.category.localeCompare(b.category);
+                } else if (order === 'category-desc') {
+                    return b.category.localeCompare(a.category);
+                }
+                return 0;
+            });
+        }
+
+        setDevices(result);
+    }, [devicesAll, searchTerm, filtered, order]);
+
 
     if (loading) {
         return <div>Caricamento dati...</div>;

@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
 
 export default function SearchBar({ onSearchChange, onFilterChange, onOrderChange }) {
-    const [searchTerm, setSearchTerm] = useState('title-asc');
+    const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState('');
-    const [order, setOrder] = useState('');
+    const [order, setOrder] = useState('title-asc');
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-        onSearchChange(e.target.value);
+        setSearchTerm(e);
+        onSearchChange(e);
     }
 
     const handleFilterChange = (e) => {
-        setFiltered(e.target.value);
-        onFilterChange(e.target.value);
+        setFiltered(e);
+        onFilterChange(e);
     }
 
     const handleOrderChange = (e) => {
-        setOrder(e.target.value);
-        onOrderChange(e.target.value);
+        setOrder(e);
+        onOrderChange(e);
     }
 
     return (
@@ -27,13 +27,13 @@ export default function SearchBar({ onSearchChange, onFilterChange, onOrderChang
                     type="text"
                     placeholder="Cerca dispositivo..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                 />
             </div>
             <div className="filter-bar">
                 <select
                     value={filtered}
-                    onChange={(e) => setFiltered(e.target.value)}
+                    onChange={(e) => handleFilterChange(e.target.value)}
                 >
                     <option value="">Tutti i dispositivi</option>
                     <option value="smartphone">Smartphone</option>
@@ -43,7 +43,7 @@ export default function SearchBar({ onSearchChange, onFilterChange, onOrderChang
             <div>
                 <select
                     value={order}
-                    onChange={(e) => setOrder(e.target.value)}
+                    onChange={(e) => handleOrderChange(e.target.value)}
                     placeholder="Ordina per"
                 >
                     <option value="title-asc">Titolo (A-Z)</option>
