@@ -33,7 +33,6 @@ export default function ComparatorPanel({ selectedDevices = [] }) {
 
     return (
         <div>
-            <h2>Comparator Panel</h2>
             {selectedDevices.length > 0 && (
                 <table className="comparison-table">
                     <thead>
