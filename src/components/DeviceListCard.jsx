@@ -1,7 +1,8 @@
-export default function DeviceListCard({ key }) {
+export default function DeviceListCard({ key, device }) {
     return (
-        <div>
-            <h2>Device List Card.jsx</h2>
+        <div key={key}>
+            <h2>{device.title}</h2>
+            <p>{device.category}</p>
         </div>
     );
 }
