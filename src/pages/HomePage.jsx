@@ -74,9 +74,11 @@ export default function HomePage() {
             <Link to="/compare">
                 <button>Compara 2 o più prodotti</button>
             </Link>
-            {devices && devices.map(device => (
-                <DeviceListCard key={device.id} device={device} />
-            ))}
+            <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+                {devices && devices.map(device => (
+                    <DeviceListCard key={device.id} device={device} />
+                ))}
+            </div>
         </div>
     );
 }
