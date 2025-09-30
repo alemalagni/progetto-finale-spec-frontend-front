@@ -1,6 +1,6 @@
-export default function DeviceListCard({ key, device }) {
+export default function DeviceListCard({ device }) {
     return (
-        <div key={key}>
+        <div>
             <h2>{device.title}</h2>
             <p>{device.category}</p>
         </div>
