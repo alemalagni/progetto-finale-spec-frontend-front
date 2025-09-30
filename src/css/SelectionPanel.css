@@ -1,0 +1,32 @@
+.device-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.device-title {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.device-category {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.device-button {
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 150px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.device-button.selected {
+    background-color: #0f3d03;
+    color: #ffffff;
+    border: 2px solid #0f3303;
+}

@@ -1,5 +1,6 @@
 import { getApi } from "../fetch/FetchApi";
 import { useState, useEffect } from "react";
+import '../css/SelectionPanel.css'
 
 export default function SelectionPanel({ comparisonDevicesChange }) {
     const [devices, setDevices] = useState([]);
@@ -16,14 +17,16 @@ export default function SelectionPanel({ comparisonDevicesChange }) {
         fetchDevices();
     }, []);
 
-    function handleSelectDevice(id) {
+    function handleSelectDevice(id, e) {
         const selectedArray = [...selectedDevices];
         if (!selectedArray.includes(id)) {
             selectedArray.push(id);
+            e.add('selected');
         } else {
             const index = selectedArray.indexOf(id);
             if (index > -1) {
                 selectedArray.splice(index, 1);
+                e.remove('selected');
             }
         }
         setSelectedDevices(selectedArray);
@@ -34,16 +37,17 @@ export default function SelectionPanel({ comparisonDevicesChange }) {
     }
 
     return (
-        <div>
+        <div className="selection-panel">
             <h2>Seleziona Dispositivo</h2>
-            <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <ul className="device-list">
                 {devices.map(device => (
                     <li key={device.id}>
                         <button
-                            onClick={() => handleSelectDevice(device.id)}
+                            onClick={(e) => handleSelectDevice(device.id, e.currentTarget.classList)}
+                            className="device-button"
                         >
-                            <p>{device.title}</p>
-                            <span>{device.category}</span>
+                            <p className="device-title">{device.title}</p>
+                            <span className="device-category">{device.category}</span>
                         </button>
                     </li>
                 ))}
