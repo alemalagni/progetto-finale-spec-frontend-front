@@ -4,6 +4,7 @@ import DeviceListCard from "../components/DeviceListCard";
 
 export default function HomePage() {
     const [devices, setDevices] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchDevices = async () => {
@@ -20,6 +21,10 @@ export default function HomePage() {
 
         fetchDevices();
     }, []);
+
+    if (loading) {
+        return <div>Carmicamento dati...</div>;
+    }
 
     return (
         <div>
