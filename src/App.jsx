@@ -1,13 +1,11 @@
-
+import HomePage from './pages/HomePage'
 import './App.css'
 
-function App() {
+export default function App() {
 
   return (
     <>
-      <div>App.jsx</div>
+      <HomePage />
     </>
   )
 }
-
-export default App
