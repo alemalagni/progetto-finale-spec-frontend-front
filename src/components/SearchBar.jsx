@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../css/SearchBar.css'
 
 export default function SearchBar({ onSearchChange, onFilterChange, onOrderChange }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +22,7 @@ export default function SearchBar({ onSearchChange, onFilterChange, onOrderChang
     }
 
     return (
-        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <div className='search-container'>
             <div className="search-bar">
                 <input
                     type="text"
@@ -40,7 +41,7 @@ export default function SearchBar({ onSearchChange, onFilterChange, onOrderChang
                     <option value="tablet">Tablet</option>
                 </select>
             </div>
-            <div>
+            <div className="order-bar">
                 <select
                     value={order}
                     onChange={(e) => handleOrderChange(e.target.value)}
