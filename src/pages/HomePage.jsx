@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getApi } from "../fetch/FetchApi";
+import { Link } from 'react-router-dom';
 import DeviceListCard from "../components/DeviceListCard";
 import SearchBar from "../components/SearchBar";
 
@@ -70,6 +71,9 @@ export default function HomePage() {
                 onFilterChange={setFiltered}
                 onOrderChange={setOrder}
             />
+            <Link to="/compare">
+                <button>Compara 2 o più prodotti</button>
+            </Link>
             {devices && devices.map(device => (
                 <DeviceListCard key={device.id} device={device} />
             ))}
