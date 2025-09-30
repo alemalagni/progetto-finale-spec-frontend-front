@@ -20,6 +20,11 @@ export default function SelectionPanel({ comparisonDevicesChange }) {
         const selectedArray = [...selectedDevices];
         if (!selectedArray.includes(id)) {
             selectedArray.push(id);
+        } else {
+            const index = selectedArray.indexOf(id);
+            if (index > -1) {
+                selectedArray.splice(index, 1);
+            }
         }
         setSelectedDevices(selectedArray);
     }
