@@ -1,7 +1,7 @@
 import { getApi } from "../fetch/FetchApi";
 import { useState, useEffect } from "react";
 
-export default function SelectionPanel() {
+export default function SelectionPanel({ comparisonDevicesChange }) {
     const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedDevices, setSelectedDevices] = useState([]);
@@ -24,6 +24,9 @@ export default function SelectionPanel() {
         setSelectedDevices(selectedArray);
     }
 
+    function handleSelection(selected) {
+        comparisonDevicesChange(selected);
+    }
 
     return (
         <div>
@@ -42,7 +45,7 @@ export default function SelectionPanel() {
             </ul>
 
             {selectedDevices.length > 0 && (
-                <button onClick={() => console.log(selectedDevices)}>Compara</button>
+                <button onClick={() => handleSelection(selectedDevices)}>Compara</button>
             )}
         </div>
     );
