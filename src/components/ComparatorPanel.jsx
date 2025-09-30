@@ -38,12 +38,30 @@ export default function ComparatorPanel({ selectedDevices = [] }) {
                     <thead>
                         <tr>
                             <th>Prodotto</th>
+                            <th>Brand</th>
+                            <th>Prezzo</th>
+                            <th>Anno di uscita</th>
+                            <th>Batteria</th>
+                            <th>Camera</th>
+                            <th>Processore</th>
+                            <th>RAM</th>
+                            <th>Dimensioni schermo</th>
+                            <th>Spazio di archiviazione</th>
                         </tr>
                     </thead>
                     <tbody>
                         {devices.map((device, index) => (
                             <tr key={selectedDevices[index]}>
                                 <td>{device?.title}</td>
+                                <td>{device?.brand}</td>
+                                <td>{device?.price}€</td>
+                                <td>{device?.year}</td>
+                                <td>{device?.specifications.battery}</td>
+                                <td>{device?.specifications.camera}</td>
+                                <td>{device?.specifications.processor}</td>
+                                <td>{device?.specifications.ram}</td>
+                                <td>{device?.specifications.screenSize}</td>
+                                <td>{device?.specifications.storage}</td>
                             </tr>
                         ))}
                     </tbody>
