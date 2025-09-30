@@ -18,9 +18,6 @@ export default function HomePage() {
                 setDevicesAll(data || []);
                 setDevices(data || []);
                 setOrder('title-asc');
-            } catch (error) {
-                console.error("Errore nel caricamento dei dispositivi:", error);
-                setDevices([]);
             } finally {
                 setLoading(false);
             }
