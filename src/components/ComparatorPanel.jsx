@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getApiById } from "../fetch/FetchApi";
+import '../css/ComparatorPanel.css'
 
 export default function ComparatorPanel({ selectedDevices = [] }) {
     const [devices, setDevices] = useState([]);
@@ -34,7 +35,7 @@ export default function ComparatorPanel({ selectedDevices = [] }) {
         <div>
             <h2>Comparator Panel</h2>
             {selectedDevices.length > 0 && (
-                <table>
+                <table className="comparison-table">
                     <thead>
                         <tr>
                             <th>Prodotto</th>
