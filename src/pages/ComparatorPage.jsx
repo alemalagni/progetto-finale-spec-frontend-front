@@ -1,5 +1,11 @@
+import SelectionPanel from "../components/SelectionPanel"
+import ComparatorPanel from "../components/ComparatorPanel";
+
 export default function ComparatorPage() {
     return (
-        <h1>ComparatorPage</h1>
+        <>
+            <SelectionPanel />
+            <ComparatorPanel />
+        </>
     );
 }
