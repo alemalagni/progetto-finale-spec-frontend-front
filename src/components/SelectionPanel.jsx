@@ -18,26 +18,32 @@ export default function SelectionPanel() {
 
     function handleSelectDevice(id) {
         const selectedArray = [...selectedDevices];
-        selectedArray.push(id);
+        if (!selectedArray.includes(id)) {
+            selectedArray.push(id);
+        }
         setSelectedDevices(selectedArray);
     }
 
 
     return (
         <div>
-            <h2>Selection Panel</h2>
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <h2>Seleziona Dispositivo</h2>
+            <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {devices.map(device => (
                     <li key={device.id}>
                         <button
-                            onClick={e => handleSelectDevice(e.target.value)}
-                            value={device.id}
+                            onClick={() => handleSelectDevice(device.id)}
                         >
-                            {device.title}
+                            <p>{device.title}</p>
+                            <span>{device.category}</span>
                         </button>
                     </li>
                 ))}
             </ul>
+
+            {selectedDevices.length > 0 && (
+                <button onClick={() => console.log(selectedDevices)}>Compara</button>
+            )}
         </div>
     );
 }
