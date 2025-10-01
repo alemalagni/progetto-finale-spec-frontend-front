@@ -15,7 +15,7 @@ export default function DeviceListCard({ device }) {
             <button className="device-list-card">
                 <h2 className="device-card-title">{device.title}</h2>
                 <p className="device-card-category">{device.category}</p>
-                <FavoriteButton />
+                <FavoriteButton id={device.id} />
             </button>
         </Link>
     );
