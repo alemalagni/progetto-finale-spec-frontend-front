@@ -9,8 +9,7 @@ export default function FavoritePage() {
     const [devices, setDevices] = useState([]);
 
     const [devicesAll, setDevicesAll] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filtered, setFiltered] = useState('');
+    const [searchResult, setSearchResult] = useState('');
     const [order, setOrder] = useState('title-asc');
 
     const fetchDevices = async () => {
@@ -36,19 +35,20 @@ export default function FavoritePage() {
     }, [favoriteDevices]);
 
     useEffect(() => {
-        let result = [...devicesAll];
-
-        if (searchTerm) {
-            result = result.filter(d =>
-                d.title.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+        let result = [];
+        if (searchResult && searchResult.length > 0) {
+            result = [...searchResult];
+        } else {
+            result = [...devicesAll];
         }
 
-        if (filtered) {
-            result = result.filter(d => d.category === filtered);
-        }
+        searchResult.map((device) => {
+            if (!favoriteDevices.includes(device.id)) {
+                result = result.filter(d => d.id !== device.id);
+            }
+        });
 
-        if (order) {
+        if (order && result.length > 0) {
             result.sort((a, b) => {
                 if (order === 'title-asc') {
                     return a.title.localeCompare(b.title);
@@ -64,15 +64,14 @@ export default function FavoritePage() {
         }
 
         setDevices(result);
-    }, [devicesAll, searchTerm, filtered, order]);
+    }, [searchResult, order, devicesAll]);
 
     return (
         <div>
             <h1>Preferiti</h1>
             <div >
                 <SearchBar
-                    onSearchChange={setSearchTerm}
-                    onFilterChange={setFiltered}
+                    SearchResult={setSearchResult}
                     onOrderChange={setOrder}
                 />
                 {favoriteDevices.length > 0 ? (

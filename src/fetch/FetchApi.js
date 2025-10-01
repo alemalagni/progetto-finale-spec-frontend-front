@@ -28,3 +28,17 @@ export async function getApiById(id) {
         console.error('L\'operazione non è andata a buon fine:', error);
     }
 };
+
+export async function searchApi(query) {
+    try {
+        const response = await fetch(`${urlAPI}?${query}`);
+        if (!response.ok) {
+            throw new Error('Errore nel server');
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Ricerca fallita:', error);
+    }
+}

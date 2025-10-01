@@ -8,8 +8,7 @@ export default function HomePage() {
     const [devicesAll, setDevicesAll] = useState([]);
     const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filtered, setFiltered] = useState('');
+    const [searchResult, setSearchResult] = useState('');
     const [order, setOrder] = useState('');
 
     useEffect(() => {
@@ -28,19 +27,14 @@ export default function HomePage() {
     }, []);
 
     useEffect(() => {
-        let result = [...devicesAll];
-
-        if (searchTerm) {
-            result = result.filter(d =>
-                d.title.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+        let result = [];
+        if (searchResult && searchResult.length > 0) {
+            result = [...searchResult];
+        } else {
+            result = [...devicesAll];
         }
 
-        if (filtered) {
-            result = result.filter(d => d.category === filtered);
-        }
-
-        if (order) {
+        if (order && result.length > 0) {
             result.sort((a, b) => {
                 if (order === 'title-asc') {
                     return a.title.localeCompare(b.title);
@@ -56,8 +50,7 @@ export default function HomePage() {
         }
 
         setDevices(result);
-    }, [devicesAll, searchTerm, filtered, order]);
-
+    }, [searchResult, order, devicesAll]);
 
     if (loading) {
         return <div>Caricamento dati...</div>;
@@ -67,8 +60,7 @@ export default function HomePage() {
     return (
         <div>
             <SearchBar
-                onSearchChange={setSearchTerm}
-                onFilterChange={setFiltered}
+                SearchResult={setSearchResult}
                 onOrderChange={setOrder}
             />
             <Link to="/compare">

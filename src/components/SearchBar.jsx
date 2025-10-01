@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
+import { searchApi } from '../fetch/FetchApi';
 import '../css/SearchBar.css'
 
-export default function SearchBar({ onSearchChange, onFilterChange, onOrderChange }) {
+export default function SearchBar({ SearchResult, onOrderChange }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState('');
     const [order, setOrder] = useState('title-asc');
 
     const handleSearchChange = (e) => {
         setSearchTerm(e);
-        onSearchChange(e);
     }
 
     const handleFilterChange = (e) => {
         setFiltered(e);
-        onFilterChange(e);
     }
 
     const handleOrderChange = (e) => {
@@ -21,6 +20,23 @@ export default function SearchBar({ onSearchChange, onFilterChange, onOrderChang
         onOrderChange(e);
     }
 
+    useEffect(() => {
+        if (searchTerm || filtered) {
+            let query = '';
+            if (searchTerm) query += `search=${searchTerm}`;
+            if (filtered) query += `category=${filtered}`;
+            if (searchTerm && filtered) query = `search=${searchTerm}&category=${filtered}`;
+
+            console.log(query);
+
+            searchApi(query).then(results => {
+                SearchResult(results);
+                console.log(results)
+            });
+        } else {
+            SearchResult([]);
+        }
+    }, [searchTerm, filtered, SearchResult]);
     return (
         <div className='search-container'>
             <div className="search-bar">
