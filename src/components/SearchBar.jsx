@@ -40,11 +40,23 @@ export default function SearchBar({ SearchResult, onOrderChange }) {
             console.log(query);
 
             searchApi(query).then(results => {
-                SearchResult(results);
-                console.log(results)
+                let success = true
+                if (results.length === 0) success = false
+                const response = {
+                    success: success,
+                    results: results
+                }
+
+                SearchResult(response);
+
             });
         } else {
-            SearchResult([]);
+            const response = {
+                success: true,
+                results: []
+            }
+            SearchResult(response);
+
         }
     }, [debouncedSearchTerm, filtered, SearchResult]);
     return (

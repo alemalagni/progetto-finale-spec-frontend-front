@@ -28,8 +28,11 @@ export default function HomePage() {
 
     useEffect(() => {
         let result = [];
-        if (searchResult && searchResult.length > 0) {
-            result = [...searchResult];
+        const risposta = searchResult.results
+        if (risposta && risposta.length > 0) {
+            result = [...risposta];
+        } else if (!searchResult.success) {
+            result = [];
         } else {
             result = [...devicesAll];
         }
@@ -67,9 +70,9 @@ export default function HomePage() {
                 <button>Compara 2 o più prodotti</button>
             </Link>
             <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-                {devices && devices.map(device => (
+                {devices.length > 0 ? devices.map(device => (
                     <DeviceListCard key={device.id} device={device} />
-                ))}
+                )) : <div>Nessun dispositivo trovato.</div>}
             </div>
         </div>
     );

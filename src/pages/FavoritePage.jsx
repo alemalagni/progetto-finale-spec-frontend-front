@@ -36,13 +36,16 @@ export default function FavoritePage() {
 
     useEffect(() => {
         let result = [];
-        if (searchResult && searchResult.length > 0) {
-            result = [...searchResult];
+        const risposta = searchResult.results
+        if (risposta && risposta.length > 0) {
+            result = [...risposta];
+        } else if (!searchResult.success) {
+            result = [];
         } else {
             result = [...devicesAll];
         }
 
-        searchResult.map((device) => {
+        risposta?.map((device) => {
             if (!favoriteDevices.includes(device.id)) {
                 result = result.filter(d => d.id !== device.id);
             }
@@ -76,11 +79,11 @@ export default function FavoritePage() {
                 />
                 {favoriteDevices.length > 0 ? (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-                        {devices.map((device, index) => (
+                        {devices.length > 0 ? devices.map((device, index) => (
                             <div key={favoriteDevices[index]}>
                                 <DeviceListCard key={favoriteDevices[index]} device={device} />
                             </div>
-                        ))}
+                        )) : <div>Nessun dispositivo preferito trovato.</div>}
                     </div>
                 ) : (
                     <div>Nessun dispositivo preferito trovato.</div>
