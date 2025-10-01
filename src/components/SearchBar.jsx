@@ -1,8 +1,10 @@
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { searchApi } from '../fetch/FetchApi';
 import '../css/SearchBar.css'
 
 export default function SearchBar({ SearchResult, onOrderChange }) {
+
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState('');
     const [order, setOrder] = useState('title-asc');
@@ -21,11 +23,19 @@ export default function SearchBar({ SearchResult, onOrderChange }) {
     }
 
     useEffect(() => {
-        if (searchTerm || filtered) {
+        const timer = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (debouncedSearchTerm || filtered) {
             let query = '';
-            if (searchTerm) query += `search=${searchTerm}`;
+            if (debouncedSearchTerm) query += `search=${debouncedSearchTerm}`;
             if (filtered) query += `category=${filtered}`;
-            if (searchTerm && filtered) query = `search=${searchTerm}&category=${filtered}`;
+            if (debouncedSearchTerm && filtered) query = `search=${debouncedSearchTerm}&category=${filtered}`;
 
             console.log(query);
 
@@ -36,7 +46,7 @@ export default function SearchBar({ SearchResult, onOrderChange }) {
         } else {
             SearchResult([]);
         }
-    }, [searchTerm, filtered, SearchResult]);
+    }, [debouncedSearchTerm, filtered, SearchResult]);
     return (
         <div className='search-container'>
             <div className="search-bar">
