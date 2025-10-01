@@ -5,12 +5,17 @@ import SearchBar from "../components/SearchBar";
 import DeviceListCard from "../components/DeviceListCard";
 
 export default function FavoritePage() {
-    const favoriteDevices = getFavoriteDevices();
+    const [favoriteDevices, setFavoriteDevices] = useState([]);
     const [devices, setDevices] = useState([]);
 
     const [devicesAll, setDevicesAll] = useState([]);
     const [searchResult, setSearchResult] = useState('');
     const [order, setOrder] = useState('title-asc');
+
+    useEffect(() => {
+        const favorites = getFavoriteDevices();
+        setFavoriteDevices(favorites);
+    }, []);
 
     const fetchDevices = async () => {
         if (favoriteDevices.length === 0) {
@@ -37,19 +42,14 @@ export default function FavoritePage() {
     useEffect(() => {
         let result = [];
         const risposta = searchResult.results
+
         if (risposta && risposta.length > 0) {
-            result = [...risposta];
+            result = risposta.filter(device => favoriteDevices.includes(device.id));
         } else if (!searchResult.success) {
             result = [];
         } else {
             result = [...devicesAll];
         }
-
-        risposta?.map((device) => {
-            if (!favoriteDevices.includes(device.id)) {
-                result = result.filter(d => d.id !== device.id);
-            }
-        });
 
         if (order && result.length > 0) {
             result.sort((a, b) => {
@@ -80,9 +80,7 @@ export default function FavoritePage() {
                 {favoriteDevices.length > 0 ? (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                         {devices.length > 0 ? devices.map((device, index) => (
-                            <div key={favoriteDevices[index]}>
-                                <DeviceListCard key={favoriteDevices[index]} device={device} />
-                            </div>
+                            <DeviceListCard key={device.id} device={device} />
                         )) : <div>Nessun dispositivo preferito trovato.</div>}
                     </div>
                 ) : (
