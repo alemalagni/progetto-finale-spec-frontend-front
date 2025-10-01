@@ -11,8 +11,12 @@ export default function FavoriteButton({ id }) {
 
     function handleFavoriteToggle(e) {
         e.preventDefault();
-        e.stopPropagation();
         setFavorite(!favorite);
+        if (!favorite) {
+            addFavorites(id);
+        } else {
+            removeFavorites(id);
+        }
     }
 
     return (

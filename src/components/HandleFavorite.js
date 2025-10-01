@@ -7,7 +7,7 @@ export function addFavorites(id) {
 }
 
 export function removeFavorites(id) {
-    const index = favoriteDevices.findIndex(device => device.id === id);
+    const index = favoriteDevices.findIndex(favId => favId === id);
     if (index !== -1) {
         favoriteDevices.splice(index, 1);
     }
