@@ -1,4 +1,4 @@
-const favoriteDevices = [1];
+const favoriteDevices = [];
 
 export function addFavorites(id) {
     if (!favoriteDevices.includes(id)) {
