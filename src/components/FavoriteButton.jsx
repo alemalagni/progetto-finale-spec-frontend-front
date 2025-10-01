@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getFavoriteDevices, addFavorites, removeFavorites } from './HandleFavorite';
 import '../css/FavoriteButton.css';
 
-export default function FavoriteButton({ id }) {
+export default function FavoriteButton({ id, absolute = true }) {
     const [favorite, setFavorite] = useState(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function FavoriteButton({ id }) {
     }
 
     return (
-        <div className='favorite-button'>
+        <div className={`favorite-button ${absolute ? 'absolute' : ''}`}>
             <button
                 onClick={handleFavoriteToggle}
                 className={favorite ? 'active' : ''}

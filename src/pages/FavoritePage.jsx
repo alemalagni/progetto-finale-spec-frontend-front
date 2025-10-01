@@ -11,7 +11,7 @@ export default function FavoritePage() {
     const [devicesAll, setDevicesAll] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState('');
-    const [order, setOrder] = useState('');
+    const [order, setOrder] = useState('title-asc');
 
     const fetchDevices = async () => {
         if (favoriteDevices.length === 0) {

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { getApiById } from "../fetch/FetchApi";
 import { useEffect, useState } from "react";
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function DetailPage() {
     const { id } = useParams();
@@ -21,6 +22,7 @@ export default function DetailPage() {
                     <h1>{device.title}</h1>
                     <div>
                         <h2>{`Categoria: ${device.category}`}</h2>
+                        <FavoriteButton id={device.id} absolute={false} />
                         <p>{`Brand: ${device.brand}`}</p>
                         <p>{`Prezzo: ${device.price}€`}</p>
                         <p>{`Anno di uscita: ${device.year}`}</p>
