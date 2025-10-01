@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #f0f0f0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 5%;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.nav-links li {
+    float: left;
+    padding: 0px 20px;
+}
+
+.nav-links li a {
+    display: block;
+    color: #000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav-links li a:hover {
+    background-color: #d3d3d3;
+    transition: 0.3s;
+    border-radius: 5px;
+}

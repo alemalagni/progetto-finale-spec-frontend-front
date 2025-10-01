@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { getApiById } from "../fetch/FetchApi";
 import { useEffect, useState } from "react";
-import HomeButton from '../components/HomeButton';
 
 export default function DetailPage() {
     const { id } = useParams();
@@ -17,7 +16,6 @@ export default function DetailPage() {
 
     return (
         <div>
-            <HomeButton />
             {device && (
                 <>
                     <h1>{device.title}</h1>
