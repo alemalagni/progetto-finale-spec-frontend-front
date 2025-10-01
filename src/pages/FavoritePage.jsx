@@ -1,6 +1,7 @@
 import { getFavoriteDevices } from "../components/HandleFavorite";
 import { useEffect, useState } from "react";
 import { getApiById } from "../fetch/FetchApi";
+import DeviceListCard from "../components/DeviceListCard";
 
 export default function FavoritePage() {
     const favoriteDevices = getFavoriteDevices();
@@ -29,17 +30,17 @@ export default function FavoritePage() {
     return (
         <div>
             <h1>Preferiti</h1>
-            <ul>
+            <div>
                 {favoriteDevices.length > 0 ? (
                     devices.map((device, index) => (
-                        <li key={favoriteDevices[index]}>
-                            {device.title}
-                        </li>
+                        <div key={favoriteDevices[index]}>
+                            <DeviceListCard key={favoriteDevices[index]} device={device} />
+                        </div>
                     ))
                 ) : (
-                    <li>Nessun dispositivo preferito trovato.</li>
+                    <div>Nessun dispositivo preferito trovato.</div>
                 )}
-            </ul>
+            </div>
         </div>
     );
 }
