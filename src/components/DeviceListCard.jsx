@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import FavoriteButton from './FavoriteButton';
 import '../css/DeviceListCard.css'
 
 export default function DeviceListCard({ device }) {
@@ -7,6 +8,7 @@ export default function DeviceListCard({ device }) {
             <button className="device-list-card">
                 <h2 className="device-card-title">{device.title}</h2>
                 <p className="device-card-category">{device.category}</p>
+                <FavoriteButton />
             </button>
         </Link>
     );
