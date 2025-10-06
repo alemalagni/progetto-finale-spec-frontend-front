@@ -26,7 +26,11 @@
 }
 
 .device-button.selected {
-    background-color: #0f3d03;
+    background-color: #3a8f25;
     color: #ffffff;
-    border: 2px solid #0f3303;
+    border: 2px solid #429526;
+}
+
+.selected .device-category {
+    color: #d0f0c0;
 }
